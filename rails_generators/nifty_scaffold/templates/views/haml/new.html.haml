@@ -1,4 +1,4 @@
-- page_title "New <%= singular_name.titleize %>"
+- page_title 'New <%= singular_name.titleize %>'
 
 %h1 New <%= singular_name.humanize.downcase %>
 = error_messages_for :<%= singular_name %>
@@ -9,5 +9,5 @@
       = f.submit 'Create'
 
 <%- if action? :index -%>
-%p= link_to 'Back', <%= plural_name %>_path
+= link_to 'Back', <%= plural_name %>_path
 <%- end -%>

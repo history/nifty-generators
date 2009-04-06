@@ -1,4 +1,4 @@
-- page_title "<%= plural_name.titleize %>"
+- page_title '<%= plural_name.titleize %>'
 
 %h1 Listing <%= plural_name.humanize.downcase %>
 %table
@@ -25,5 +25,5 @@
         <%- end -%>
 
 <%- if actions? :new -%>
-%p= link_to "New <%= singular_name.humanize.downcase %>", new_<%= singular_name %>_path
+= link_to "New <%= singular_name.humanize.downcase %>", new_<%= singular_name %>_path
 <%- end -%>

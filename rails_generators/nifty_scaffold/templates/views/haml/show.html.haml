@@ -1,4 +1,4 @@
-- page_title "<%= singular_name.titleize %>"
+- page_title '<%= singular_name.titleize %>'
 
 %h1== <%= singular_name.titleize %>
 
@@ -9,5 +9,5 @@
 <%- end -%>
 
 <%- if action? :index -%>
-%p= link_to 'Back', <%= plural_name %>_path
+= link_to 'Back', <%= plural_name %>_path
 <%- end -%>
