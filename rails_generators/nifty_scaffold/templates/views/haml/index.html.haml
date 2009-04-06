@@ -1,25 +1,29 @@
-- title "<%= plural_name.titleize %>"
+- page_title "<%= plural_name.titleize %>"
 
+%h1 Listing <%= plural_name.humanize.downcase %>
 %table
-  %tr
-    <%- for attribute in attributes -%>
-    %th <%= attribute.column.human_name %>
-    <%- end -%>
-  - for <%= singular_name %> in @<%= plural_name %>
+  %thead
     %tr
       <%- for attribute in attributes -%>
-      %td= h <%= singular_name %>.<%= attribute.name %>
+      %th <%= attribute.column.human_name %>
       <%- end -%>
-      <%- if action? :show -%>
-      %td= link_to 'Show', <%= singular_name %>
-      <%- end -%>
-      <%- if action? :edit -%>
-      %td= link_to 'Edit', edit_<%= singular_name %>_path(<%= singular_name %>)
-      <%- end -%>
-      <%- if action? :destroy -%>
-      %td= link_to 'Destroy', <%= singular_name %>, :confirm => 'Are you sure?', :method => :delete
-      <%- end -%>
+      %th{:colspan => 3} Action
+  %tbody
+    - @<%= plural_name %>.each do |<%= singular_name %>|
+      %tr{:class => cycle('odd-row', 'even-row')}
+        <%- for attribute in attributes -%>
+        %td= h <%= singular_name %>.<%= attribute.name %>
+        <%- end -%>
+        <%- if action? :show -%>
+        %td= link_to 'Show', <%= singular_name %>
+        <%- end -%>
+        <%- if action? :edit -%>
+        %td= link_to 'Edit', edit_<%= singular_name %>_path(<%= singular_name %>)
+        <%- end -%>
+        <%- if action? :destroy -%>
+        %td= link_to 'Destroy', <%= singular_name %>, :confirm => 'Are you sure?', :method => :delete
+        <%- end -%>
 
 <%- if actions? :new -%>
-%p= link_to "New <%= singular_name.titleize %>", new_<%= singular_name %>_path
+%p= link_to "New <%= singular_name.humanize.downcase %>", new_<%= singular_name %>_path
 <%- end -%>

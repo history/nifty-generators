@@ -77,7 +77,7 @@ class NiftyScaffoldGenerator < Rails::Generator::Base
         end
       
         if form_partial?
-          m.template "views/#{view_language}/_form.html.#{view_language}", "app/views/#{plural_name}/_form.html.#{view_language}"
+          m.template "views/#{view_language}/_fields.html.#{view_language}", "app/views/#{plural_name}/_fields.html.#{view_language}"
         end
       
         m.route_resources plural_name
@@ -131,15 +131,15 @@ class NiftyScaffoldGenerator < Rails::Generator::Base
     end.join("  \n").strip
   end
   
-  def render_form
+  def render_fields
     if form_partial?
-      if options[:haml]
-        "= render :partial => 'form'"
+      if options[:erb]
+        "<%= render :partial => 'fields', :locals => {:f => f} %>"
       else
-        "<%= render :partial => 'form' %>"
+        "= render :partial => 'fields', :locals => {:f => f}"
       end
     else
-      read_template("views/#{view_language}/_form.html.#{view_language}")
+      read_template("views/#{view_language}/_fields.html.#{view_language}")
     end
   end
   
@@ -180,7 +180,7 @@ class NiftyScaffoldGenerator < Rails::Generator::Base
 protected
   
   def view_language
-    options[:haml] ? 'haml' : 'erb'
+    options[:erb] ? 'erb' : 'haml'
   end
   
   def test_framework
@@ -199,7 +199,7 @@ protected
     opt.on("--skip-timestamps", "Don't add timestamps to migration file.") { |v| options[:skip_timestamps] = v }
     opt.on("--skip-controller", "Don't generate controller, helper, or views.") { |v| options[:skip_controller] = v }
     opt.on("--invert", "Generate all controller actions except these mentioned.") { |v| options[:invert] = v }
-    opt.on("--haml", "Generate HAML views instead of ERB.") { |v| options[:haml] = v }
+    opt.on("--erb", "Generate ERB views instead of HAML.") { |v| options[:erb] = v }
     opt.on("--testunit", "Use test/unit for test files.") { options[:test_framework] = :testunit }
     opt.on("--rspec", "Use RSpec for test files.") { options[:test_framework] = :rspec }
     opt.on("--shoulda", "Use Shoulda for test files.") { options[:test_framework] = :shoulda }

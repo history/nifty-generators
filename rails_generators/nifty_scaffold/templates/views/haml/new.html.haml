@@ -1,7 +1,13 @@
-- title "New <%= singular_name.titleize %>"
+- page_title "New <%= singular_name.titleize %>"
 
-<%= render_form %>
+%h1 New <%= singular_name.humanize.downcase %>
+= error_messages_for :<%= singular_name %>
+- form_for @<%= singular_name %>, :html => {:class => :fancy} do |f|
+  %ul
+    <%= render_fields %>
+    %li.buttons
+      = f.submit 'Create'
 
 <%- if action? :index -%>
-%p= link_to "Back to List", <%= plural_name %>_path
+%p= link_to 'Back', <%= plural_name %>_path
 <%- end -%>

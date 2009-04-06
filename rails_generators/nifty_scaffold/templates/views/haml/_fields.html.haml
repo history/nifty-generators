@@ -1,0 +1,5 @@
+<%- for attribute in attributes -%>
+%li
+  = f.label :<%= attribute.name %>, nil, :class => :desc
+  %div= f.<%= attribute.field_type %> :<%= attribute.name %>, :class => 'field'
+<%- end -%>
